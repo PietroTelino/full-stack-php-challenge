@@ -1,0 +1,46 @@
+# =========================
+# Gerais / Sistema
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+
+# =========================
+# Variáveis de ambiente (globais)
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+*.pid
+
+# =========================
+# Editor / IDE (global)
+# =========================
+.vscode/
+.idea/
+.fleet/
+.zed/
+
+# =========================
+# Cache / temporários
+# =========================
+.cache/
+tmp/
+temp/
+
+# =========================
+# Node / PHP globais (segurança)
+# =========================
+**/node_modules/
+**/vendor/
+
+# =========================
+# Build artifacts genéricos
+# =========================
+**/dist/
+**/build/
