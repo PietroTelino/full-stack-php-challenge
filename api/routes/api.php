@@ -20,7 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/transactions/{id}/reverse', [WalletController::class, 'reverse']);
 });
 
-// Catch-all para preflight
 Route::options('/{any}', function (Request $request) {
     return response()->noContent();
 })->where('any', '.*');

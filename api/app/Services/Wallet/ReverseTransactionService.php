@@ -12,14 +12,12 @@ class ReverseTransactionService
 {
     public function handle(User $actor, Transaction $original, ?string $reason = null): Transaction
     {
-        // Regra simples: só reverte transações completed e ainda não revertidas
         if ($original->status !== Transaction::STATUS_COMPLETED) {
             throw ValidationException::withMessages([
                 'transaction' => ['Transação não elegível para reversão.'],
             ]);
         }
 
-        // Impede reversão dupla
         $already = Transaction::query()
             ->where('type', Transaction::TYPE_REVERSAL)
             ->where('reference_id', $original->id)
@@ -32,7 +30,6 @@ class ReverseTransactionService
         }
 
         return DB::transaction(function () use ($actor, $original, $reason) {
-            // Reversão de depósito: retirar do "to_user"
             if ($original->type === Transaction::TYPE_DEPOSIT) {
                 if (! $original->to_user_id) {
                     throw ValidationException::withMessages(['transaction' => ['Depósito inválido.']]);
@@ -44,7 +41,6 @@ class ReverseTransactionService
                     $toWallet = Wallet::query()->where('user_id', $original->to_user_id)->lockForUpdate()->firstOrFail();
                 }
 
-                // Se não quiser permitir saldo negativo por reversão, valide aqui
                 $toWallet->balance = (float)$toWallet->balance - (float)$original->amount;
                 $toWallet->save();
 
@@ -65,7 +61,6 @@ class ReverseTransactionService
                 ]);
             }
 
-            // Reversão de transferência: devolve do to_user para from_user
             if ($original->type === Transaction::TYPE_TRANSFER) {
                 if (! $original->from_user_id || ! $original->to_user_id) {
                     throw ValidationException::withMessages(['transaction' => ['Transferência inválida.']]);
@@ -89,7 +84,6 @@ class ReverseTransactionService
                 $fromWallet = ($original->from_user_id === $firstId) ? $firstWallet : $secondWallet;
                 $toWallet   = ($original->to_user_id === $firstId) ? $firstWallet : $secondWallet;
 
-                // Se quiser exigir que o destinatário ainda tenha saldo suficiente para estornar:
                 if ((float)$toWallet->balance < (float)$original->amount) {
                     throw ValidationException::withMessages([
                         'transaction' => ['Saldo insuficiente do destinatário para reversão.'],

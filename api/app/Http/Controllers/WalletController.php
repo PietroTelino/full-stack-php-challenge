@@ -44,7 +44,6 @@ class WalletController extends Controller
     {
         $from = $request->user();
 
-        /** @var User|null $to */
         $to = User::query()->where('email', $request->input('to_email'))->first();
 
         if (! $to) {
@@ -79,10 +78,8 @@ class WalletController extends Controller
     {
         $user = $request->user();
 
-        /** @var Transaction $tx */
         $tx = Transaction::query()->findOrFail($id);
 
-        // Regra mínima: permitir reversão apenas se o usuário participou
         if ($tx->from_user_id !== $user->id && $tx->to_user_id !== $user->id) {
             return response()->json([
                 'message' => 'Você não tem permissão para reverter esta transação.',

@@ -17,3 +17,9 @@ docker compose exec api php artisan optimize:clear
 docker compose up -d --build front
 
 docker compose up --build
+
+docker compose restart
+
+php artisan make:migration
+
+php artian migrate:status

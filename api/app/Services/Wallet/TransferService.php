@@ -27,7 +27,6 @@ class TransferService
         }
 
         return DB::transaction(function () use ($from, $to, $value) {
-            // lock das wallets numa ordem consistente para evitar deadlock
             $firstId = min($from->id, $to->id);
             $secondId = max($from->id, $to->id);
 

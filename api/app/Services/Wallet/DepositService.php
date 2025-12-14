@@ -21,7 +21,6 @@ class DepositService
         }
 
         return DB::transaction(function () use ($user, $value) {
-            /** @var Wallet $wallet */
             $wallet = Wallet::query()
                 ->where('user_id', $user->id)
                 ->lockForUpdate()
@@ -33,7 +32,6 @@ class DepositService
                     'balance' => 0,
                 ]);
 
-                // re-lock após criação
                 $wallet = Wallet::query()
                     ->where('user_id', $user->id)
                     ->lockForUpdate()

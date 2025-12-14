@@ -40,7 +40,6 @@ class AuthController extends Controller
             ]);
         }
 
-        // Protege contra session fixation
         $request->session()->regenerate();
 
         return response()->json(['ok' => true]);
@@ -50,7 +49,6 @@ class AuthController extends Controller
     {
         Auth::guard('web')->logout();
 
-        // Invalida sessão e renova token CSRF
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

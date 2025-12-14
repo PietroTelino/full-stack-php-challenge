@@ -12,7 +12,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Base para centralização funcionar sempre */
 html,
 body,
 #root {
@@ -23,19 +22,16 @@ body {
   margin: 0;
 }
 
-/* ESSENCIAL: impede inputs de "estourarem" por padding/border */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Links */
 a {
   color: inherit;
 }
 
-/* Inputs / Buttons com aparência consistente no dark */
 input,
 button,
 select,
@@ -44,7 +40,6 @@ textarea {
   color: inherit;
 }
 
-/* INPUTS */
 input,
 select,
 textarea {
@@ -67,7 +62,6 @@ textarea:focus {
   border-color: rgba(255, 255, 255, 0.55);
 }
 
-/* BOTÕES */
 button {
   padding: 10px 14px;
   border-radius: 10px;
@@ -100,7 +94,6 @@ td {
   vertical-align: top;
 }
 
-/* Ajuda a não quebrar layout com textos longos */
 .page__content {
   min-width: 0;
 }
