@@ -15,9 +15,6 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // loginUser deve:
-      // 1) GET /sanctum/csrf-cookie (withCredentials)
-      // 2) POST /login (withCredentials + X-XSRF-TOKEN via axios)
       await loginUser(email.trim(), password);
       nav("/");
     } catch (err: any) {
@@ -40,7 +37,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ maxWidth: 420, margin: "40px auto", padding: 16 }}>
+    <div style={{ width: "100%", border: "1px solid #333", padding: 16 }}>
       <h2>Login</h2>
 
       {error && <div style={{ color: "crimson", marginBottom: 12 }}>{error}</div>}
