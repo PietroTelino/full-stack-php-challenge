@@ -20,6 +20,10 @@ docker compose up --build
 
 docker compose restart
 
+docker compose exec front npm test
+
+docker compose exec api php artisan test
+
 php artisan make:migration
 
 php artian migrate:status

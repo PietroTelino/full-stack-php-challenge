@@ -201,10 +201,6 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
-
-      <p style={{ marginTop: 16, color: "rgba(255,255,255,0.75)" }}>
-        Próximo passo: testes automatizados (services e rotas) e refinamento de regras de reversão.
-      </p>
     </div>
   );
 }
